@@ -1,11 +1,12 @@
 #include<bits/stdc++.h>
 using namespace std;
+#include "prim.cpp"
 ifstream fin("in.txt");
 
 
 int G[1000][1000];
 set<int>node;
-int n;
+int v; //extern
 int start=0;
 vector<int>result;
 int bestC=INT_MAX;
@@ -13,13 +14,13 @@ int bestC=INT_MAX;
 void input()
 {
 
-    fin>>n;
-    for(int i=0;i<n;i++)
+    fin>>v;
+    for(int i=0;i<v;i++)
     {
         node.insert(i);
     }
 
-    for(int i=0;i<(n*n-n)/2;i++)
+    for(int i=0;i<(v*v-v)/2;i++)
     {
         int d,e,f;
         fin>>d>>e>>f;
@@ -38,7 +39,7 @@ void exponent(set<int> cover,vector<int>que, int processing, int cost)
 {
 
     vector<int>::iterator iit;
-    if(cover.size()==n)
+    if(cover.size()==v)
     {
 
         int c=cost+addcost(processing,start);
@@ -79,6 +80,7 @@ int main()
 
         cout<<*it<<" ->";
     cout<<"Cost= "<<bestC;
+    primMST(G);
 
 
 
