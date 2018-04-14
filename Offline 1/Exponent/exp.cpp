@@ -37,17 +37,22 @@ int addcost(int a, int b)
 void exponent(set<int> cover,vector<int>que, int processing, int cost)
 {
 
-    vector<int>::iterator iit;
+    //vector<int>::iterator iit;
     if(cover.size()==n)
     {
 
         int c=cost+addcost(processing,start);
+        que.push_back(start);
         if(c<bestC)
         {
             bestC=c;
-            que.push_back(start);
+
             result=que;
         }
+        for(vector<int>::iterator it=que.begin(); it!=que.end(); it++)
+
+            cout<<*it<<" ->";
+        cout<<"Cost= "<<c<<"\n";
         return;
     }
     set<int>remain;
@@ -74,7 +79,7 @@ int main()
     q.push_back(start);
     st.insert(start);
     exponent(st, q, start, 0);
-
+    cout<<"\nPath\n";
     for(vector<int>::iterator it=result.begin();it!=result.end();it++)
 
         cout<<*it<<" ->";

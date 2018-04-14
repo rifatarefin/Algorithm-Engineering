@@ -117,10 +117,7 @@ int main()
     vector<int>q;
     q.push_back(start);
     st.insert(start);
-//    cout<<primMST(G);
-//    checkBound(0,2,20,st);
-//    st.insert(1);
-//    checkBound(0,2,20,st);
+
 
     exponent(st, q, start, 0);
 
