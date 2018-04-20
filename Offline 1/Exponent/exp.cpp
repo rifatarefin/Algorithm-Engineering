@@ -14,12 +14,12 @@ void input()
 {
 
     fin>>n;
-    for(int i=0;i<n;i++)
+    for(int i=0; i<n; i++)
     {
         node.insert(i);
     }
 
-    for(int i=0;i<(n*n-n)/2;i++)
+    for(int i=0; i<(n*n-n)/2; i++)
     {
         int d,e,f;
         fin>>d>>e>>f;
@@ -49,16 +49,16 @@ void exponent(set<int> cover,vector<int>que, int processing, int cost)
 
             result=que;
         }
-        for(vector<int>::iterator it=que.begin(); it!=que.end(); it++)
-
-            cout<<*it<<" ->";
-        cout<<"Cost= "<<c<<"\n";
+//        for(vector<int>::iterator it=que.begin(); it!=que.end(); it++)     //print
+//
+//            cout<<*it<<" ->";
+//        cout<<"Cost= "<<c<<"\n";
         return;
     }
     set<int>remain;
     set_difference(node.begin(),node.end(),cover.begin(),cover.end(),inserter(remain,remain.end()));
     set<int>::iterator it;
-    for(it=remain.begin();it!=remain.end();it++)
+    for(it=remain.begin(); it!=remain.end(); it++)
     {
         set<int>nn=cover;
         nn.insert(*it);
@@ -71,19 +71,26 @@ void exponent(set<int> cover,vector<int>que, int processing, int cost)
 }
 int main()
 {
+    int tc;
+    fin>>tc;
+    for(int zx=0; zx<tc; zx++)
+    {
+        clock_t tStart = clock();
+        result.clear();
+        node.clear();
+        bestC=INT_MAX;
+        input();
+        set<int>st;
+        vector<int>q;
+        q.push_back(start);
+        st.insert(start);
+        exponent(st, q, start, 0);
+        cout<<"\nPath\n";
+        for(vector<int>::iterator it=result.begin(); it!=result.end(); it++)
 
-    input();
-
-    set<int>st;
-    vector<int>q;
-    q.push_back(start);
-    st.insert(start);
-    exponent(st, q, start, 0);
-    cout<<"\nPath\n";
-    for(vector<int>::iterator it=result.begin();it!=result.end();it++)
-
-        cout<<*it<<" ->";
-    cout<<"Cost= "<<bestC;
+            cout<<*it<<" ->";
+        cout<<"Cost= "<<bestC<<" Time: "<<(double)(clock() - tStart)/CLOCKS_PER_SEC;
+    }
 
 
 

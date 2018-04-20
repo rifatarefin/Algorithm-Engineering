@@ -34,13 +34,24 @@ int addcost(int a, int b)
 {
     return G[a][b];
 }
-
+int newG[V][V];
 int checkBound(int a, int b, int cost, set<int>remain)
 {
+    //if(remain.size()==0)return 0;
     int ed1=INT_MAX,ed2=INT_MAX;
     int total=cost;
-    int newG[V][V];
-    copy(&G[0][0], &G[0][0]+V*V,&newG[0][0]);
+    for(int i=0;i<v;i++)
+    {
+        for(int j=0;j<v;j++)
+        {
+            newG[i][j]=G[i][j];
+            //cout<<G[i][j]<<" ";
+        }//cout<<endl;
+    }
+
+    //copy(&G[0][0], &G[0][0]+v*v,&newG[0][0]);
+
+
     for(int i=0; i<v; i++)
     {
         for(int j=0; j<v; j++)
@@ -48,6 +59,7 @@ int checkBound(int a, int b, int cost, set<int>remain)
             if(remain.find(i)==remain.end() || remain.find(j)==remain.end())
             {
                 newG[i][j]=0;
+                newG[j][i]=0;
             }
 
             //cout<<newG[i][j]<<" ";
@@ -58,7 +70,12 @@ int checkBound(int a, int b, int cost, set<int>remain)
             if(G[b][i]<ed2)ed2=G[b][i];
         }
     }
-    total+=primMST(newG)+ed1+ed2;
+
+
+    int pri=0;
+    if(remain.size()>1)pri=primMST(newG,*(remain.begin()));
+
+    total+=pri+ed1+ed2;
     return total;
 
 }
@@ -66,38 +83,41 @@ int checkBound(int a, int b, int cost, set<int>remain)
 void exponent(set<int> cover,vector<int>que, int processing, int cost)
 {
 
-
-    vector<int>::iterator iit;
-    if(cover.size()==v)
+    set<int>remain;
+    set_difference(node.begin(),node.end(),cover.begin(),cover.end(),inserter(remain,remain.end()));
+    if(remain.size()==1)
     {
-
-        int c=cost+addcost(processing,start);
+        int last=*(remain.begin());
+        int c=cost+addcost(processing,last)+addcost(last,start);
+        que.push_back(last);
+        que.push_back(start);
         if(c<bestC)
         {
             bestC=c;
-            que.push_back(start);
+
             result=que;
         }
 
-        for(vector<int>::iterator it=que.begin(); it!=que.end(); it++)
-
-            cout<<*it<<" ->";
-        cout<<"Cost= "<<c<<"\n";
+//        for(vector<int>::iterator it=que.begin(); it!=que.end(); it++)    //print
+//
+//            cout<<*it<<" ->";
+//        cout<<"Cost= "<<c<<"\n";
 
         return;
     }
-    set<int>remain;
-    set_difference(node.begin(),node.end(),cover.begin(),cover.end(),inserter(remain,remain.end()));
+
     set<int>::iterator it;
     for(it=remain.begin(); it!=remain.end(); it++)
     {
         set<int>x=remain;
         x.erase(*it);
+
         int r=checkBound(start,*it,cost+addcost(processing, *it), x);
-        cout<<r<<"\n";
+        //cout<<r<<endl;
         if(r>bestC)
-        { cout<<"cut\n";
-            return;
+        {
+            //cout<<"cut\n";
+            continue;
         }
         set<int>nn=cover;
         nn.insert(*it);
@@ -111,22 +131,49 @@ void exponent(set<int> cover,vector<int>que, int processing, int cost)
 int main()
 {
 
-    input();
+    int tc;
+    fin>>tc;
+    for(int zx=0; zx<tc; zx++)
+    {
+        clock_t tStart = clock();
+        result.clear();
+        node.clear();
+        bestC=INT_MAX;
+        input();
 
-    set<int>st;
-    vector<int>q;
-    q.push_back(start);
-    st.insert(start);
 
 
-    exponent(st, q, start, 0);
+        set<int>st;
+        vector<int>q;
+        q.push_back(start);
+        st.insert(start);
 
-    for(vector<int>::iterator it=result.begin(); it!=result.end(); it++)
 
-        cout<<*it<<" ->";
-    cout<<"Cost= "<<bestC;
+        exponent(st, q, start, 0);
+
+        cout<<"PATH\n";
+        for(vector<int>::iterator it=result.begin(); it!=result.end(); it++)
+
+            cout<<*it<<" ->";
+        cout<<"Cost= "<<bestC<<" Time: "<<(double)(clock() - tStart)/CLOCKS_PER_SEC<<endl;
+    }
 
 
 
 
 }
+//for(int i=0;i<v;i++)
+//    {
+//        for(int j=0;j<v;j++)
+//        {
+//            cout<<G[i][j]<<" ";
+//        }cout<<endl;
+//    }
+
+
+
+
+//for(set<int>::iterator it=remain.begin();it!=remain.end();it++)               //print
+//    {
+//        cout<<*it<<" ";
+//    }cout<<"\n";

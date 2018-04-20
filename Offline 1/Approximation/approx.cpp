@@ -11,8 +11,8 @@ int start=0;
 vector<int>result;
 int bestC=INT_MAX;
 
-
 map<int, vector<int> >childs;
+
 void input()
 {
 
@@ -48,7 +48,7 @@ void trav(int s, int cost)
         return;
     }
     vector<int> vb=it->second;
-    for(vector<int>::iterator j=vb.begin();j!=vb.end();j++)
+    for(vector<int>::iterator j=vb.begin(); j!=vb.end(); j++)
     {
         trav(*j,cost+addcost(s,*j));
     }
@@ -58,29 +58,39 @@ void trav(int s, int cost)
 
 int main()
 {
+    int tc;
+    fin>>tc;
+    for(int zx=0; zx<tc; zx++)
 
-    input();
-    int *parent=primMST(G);
-
-    for(int i=0;i<v;i++)
     {
-        for(int j=0;j<v;j++)
+        clock_t tStart = clock();
+        node.clear();
+        result.clear();
+        bestC=INT_MAX;
+        childs.clear();
+        input();
+        int *parent=primMST(G);
+
+        for(int i=0; i<v; i++)
         {
-            if(parent[j]==i)
+            for(int j=0; j<v; j++)
             {
-                childs[i].push_back(j);
+                if(parent[j]==i)
+                {
+                    childs[i].push_back(j);
+                }
             }
+        }cout<<"Path"<<endl;
+        trav(0,0);
+
+        int cost=0;
+        for(int i=1; i<v; i++)
+        {
+            cost+=G[result[i-1]][result[i]];
         }
+        cost+=G[result[v-1]][0];
+        cout<<"0->Cost="<<cost<<" Time: "<<(double)(clock() - tStart)/CLOCKS_PER_SEC<<endl;
     }
-    trav(0,0);
-    cout<<0<<"\n";
-    int cost=0;
-    for(int i=1;i<v;i++)
-    {
-        cost+=G[result[i-1]][result[i]];
-    }
-    cost+=G[result[v-1]][0];
-    cout<<"Cost="<<cost;
 
 
 

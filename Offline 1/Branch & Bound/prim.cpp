@@ -15,9 +15,9 @@ int minKey(int key[], bool mstSet[])
     // Initialize min value
     int min = INT_MAX, min_index;
 
-    for (int v = 0; v < V; v++)
-        if (mstSet[v] == false && key[v] < min)
-            min = key[v], min_index = v;
+    for (int i = 0; i < v; i++)
+        if (mstSet[i] == false && key[i] < min)
+            min = key[i], min_index = i;
 
     return min_index;
 }
@@ -36,7 +36,7 @@ int printMST(int parent[], int n, int graph[V][V])
 
 // Function to construct and print MST for a graph represented using adjacency
 // matrix representation
-int primMST(int graph[V][V])
+int primMST(int graph[V][V],int root)
 {
     int parent[V]; // Array to store constructed MST
     int key[V];   // Key values used to pick minimum weight edge in cut
@@ -47,8 +47,8 @@ int primMST(int graph[V][V])
         key[i] = INT_MAX, mstSet[i] = false;
 
     // Always include first 1st vertex in MST.
-    key[0] = 0;     // Make key 0 so that this vertex is picked as first vertex
-    parent[0] = -1; // First node is always root of MST
+    key[root] = 0;     // Make key 0 so that this vertex is picked as first vertex
+    parent[root] = -1; // First node is always root of MST
 
     // The MST will have V vertices
     for (int count = 0; count < v-1; count++)
