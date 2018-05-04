@@ -10,23 +10,22 @@ void input()
 {
     fin>>M>>N;
     string line;
-    memset(a,0,sizeof(a[0]));
-    memset(w,0,sizeof(w[0]));
+    memset(a,0,sizeof(a));
+    memset(w,0,sizeof(w));
     result.clear();
     minC=INT_MAX;
-    getline(fin,line);
+
     for(int i=0;i<N;i++)
     {
-        getline(fin,line,' ');
-        //cout<<line<<endl;           //print
-        w[i]=stod(line);
-        getline(fin,line);
-        istringstream is(line);
-        int num,mask=0;
-        while(is>>num)
+        fin>>w[i];
+        int c,num,mask=0;
+        fin>>c;
+        for(int j=0;j<c;j++)
         {
+            fin>>num;
             mask|=1<<num;
         }
+
         a[i]=mask;
         //cout<<mask<<endl;              //print
     }
@@ -62,7 +61,7 @@ int main()
         set<int>sd;
         subset(0,0,0,sd);
         cout<<"Cost="<<minC<<", Subsets: ";
-        for(set<int>::iterator it=result.begin();it!=result.end();it++)cout<<*it<<" ";
+        for(set<int>::iterator it=result.begin();it!=result.end();it++)cout<<*it<<", ";
         cout<<"\n\n";
 
     }
