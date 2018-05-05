@@ -118,34 +118,28 @@ int main()
     fin>>tc;
     for(int xx=0; xx<tc; xx++)
     {
+        clock_t tStart = clock();
         input();
 
-                for(int i =0;i<=M;i++)
-        {
-            for(int j=0;j<=N;j++)
-            cout<<G[i][j]<<" ";
-            cout<<endl;
-        }
-        cout<<endl<<endl;
+        b=new double[N];
+        double ret=0,cost=0;
 
-//        b=new double[N];
-//        double ret=0,cost=0;
-//
-//        Simplex(M,N,G,b,ret);
-//        //cout<<ret<<endl;
-//        for(int i=0; i<N; i++)
-//        {
-//            if(b[i]>=(1/maxf))
-//            {
-//                b[i]=1;
-//                cost+=w[i];
-//                cout<<i<<", ";
-//            }
-//            else b[i]=0;
-//
-//        }
-//        delete b;
-//        cout<<"cost="<<cost<<", f="<<maxf<<"\n\n";
+        Simplex(M,N,G,b,ret);
+        //cout<<ret<<endl;
+        for(int i=0; i<N; i++)
+        {
+            //cout<<b[i]<<", ";
+            if(b[i]>=(1/maxf))
+            {
+                b[i]=1;
+                cost+=w[i];
+                cout<<i<<", ";
+            }
+            else b[i]=0;
+
+        }
+        delete b;
+        cout<<"cost="<<cost<<", f="<<maxf<<" Time: "<<(double)(clock() - tStart)/CLOCKS_PER_SEC<<"\n\n";
 
     }
 

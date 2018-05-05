@@ -57,12 +57,13 @@ int main()
     fin>>tc;
     for(int xx=0;xx<tc;xx++)
     {
+        clock_t tStart = clock();
         input();
         set<int>sd;
         subset(0,0,0,sd);
         cout<<"Cost="<<minC<<", Subsets: ";
         for(set<int>::iterator it=result.begin();it!=result.end();it++)cout<<*it<<", ";
-        cout<<"\n\n";
+        cout<<" Time: "<<(double)(clock() - tStart)/CLOCKS_PER_SEC<<"\n\n";
 
     }
 }
