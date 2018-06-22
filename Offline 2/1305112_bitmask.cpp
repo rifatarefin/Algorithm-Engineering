@@ -61,9 +61,9 @@ int main()
         input();
         set<int>sd;
         subset(0,0,0,sd);
-        cout<<"Cost="<<minC<<", Subsets: ";
+        //cout<<"Cost="<<minC<<", Subsets: ";
         for(set<int>::iterator it=result.begin();it!=result.end();it++)cout<<*it<<", ";
-        cout<<" Time: "<<(double)(clock() - tStart)/CLOCKS_PER_SEC<<"\n\n";
+        cout<<"Cost="<<minC<<" Time: "<<(double)(clock() - tStart)/CLOCKS_PER_SEC<<"\n\n";
 
     }
 }
