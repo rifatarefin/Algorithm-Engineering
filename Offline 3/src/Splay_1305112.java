@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Splay_1305112 {
-    private Node<Integer> root;
+    public Node<Integer> root;
 
     public Splay_1305112(int val) {
         root=new Node<>(val);
@@ -9,6 +9,7 @@ public class Splay_1305112 {
 
     private Node<Integer>rotateRight(Node<Integer> node)
     {
+        //if(node.left==null)return null;
         Node<Integer>x=node.left;
         node.left=x.right;
         x.right=node;
@@ -17,6 +18,7 @@ public class Splay_1305112 {
 
     private Node<Integer>rotateLeft(Node<Integer> node)
     {
+        //if(node.right==null)return null;
         Node<Integer>x=node.right;
         node.right=x.left;
         x.left=node;
@@ -40,7 +42,7 @@ public class Splay_1305112 {
                 if(node.left.right!=null)node.left=rotateLeft(node.left);
             }
             if(node==null)return node;
-            else return rotateRight(node);
+            else if(node.left!=null)return rotateRight(node);
         }
         else if(val>node.data)
         {
@@ -56,9 +58,9 @@ public class Splay_1305112 {
                 node=rotateLeft(node);
             }
             if(node.right==null)return node;
-            else return rotateLeft(node);
+            else if(node.right!=null)return rotateLeft(node);
         }
-        else return node;
+        return node;
     }
     public boolean search(int key)
     {
@@ -104,7 +106,7 @@ public class Splay_1305112 {
             {
                 Node<Integer>t=root.right;
                 root=root.left;
-                splay(root,val);
+                root=splay(root,val);
                 root.right=t;
             }
         }
