@@ -7,11 +7,11 @@ public class Tester_1305112 {
         Splay_1305112 splay=new Splay_1305112(100);
         int i=0;
         int k=10004;
-        while (i<1004)
-        {
-            splay.insert(random.nextInt()%k);
-            i++;
-        }
+//        while (i<1004)
+//        {
+//            splay.insert(random.nextInt()%k);
+//            i++;
+//        }
         long time=System.nanoTime();
         long t1=0,t2=0,t3=0;
         while(i<k)
